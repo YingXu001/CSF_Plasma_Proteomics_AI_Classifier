@@ -1,6 +1,6 @@
 # CSF_Plasma_Proteomics_AI_Classifier
 
-This repository hosts the code and analyses for CSF and Plasma Proteomics AI Classifier: A machine learning framework trained on **cerebrospinal fluid (CSF)** and **plasma proteomic data** to classify major neurodegenerative diseases (AD, PD, FTD, DLB, and controls). The project integrates LightGBM models, differential abundance analysis (DAA), protein co-expression modules, and neuropathological correlations across multiple cohorts including **ROSMAP**, **WashU**, and **Stanford-ADRC**...
+This repository hosts the code and analyses for CSF and Plasma Proteomics AI Classifier: A machine learning framework trained on **cerebrospinal fluid (CSF)** and **plasma** proteomic data to classify major neurodegenerative diseases (AD, PD, FTD, DLB, and controls). The project integrates LightGBM models, differential abundance analysis (DAA), protein co-expression modules, and neuropathological correlations across multiple cohorts including **Knight-ADRC**, **Stanford ADRC**, **MDC**, **Barcelona-1**, **ACE**, **ADNI** and **PPMI** cohorts.
 
 ---
 
@@ -22,6 +22,7 @@ This repository hosts the code and analyses for CSF and Plasma Proteomics AI Cla
 ├── Plasma_DAA_PUB.R                                      # DAA for plasma proteins
 ├── Plasma_PCA_PUB.R                                      # PCA of plasma analytes
 │
+├── LightGBM.ipynb                     # Model development and SHAP ratio
 ├── LightGBM_Hagerman_PUB.ipynb        # External validation on Hagerman samples
 ├── LightGBM_Internal_Test_PUB.ipynb   # Internal cross-validation and performance
 ├── LightGBM_ROSMAP_PUB.ipynb          # Inference and performance on ROSMAP proteomic data
@@ -39,7 +40,7 @@ This repository hosts the code and analyses for CSF and Plasma Proteomics AI Cla
 
 - **Objective**: To develop and evaluate classifiers predicting neurodegenerative disease probability using CSF and plasma proteomes.
 - **Models**: Gradient-boosted decision trees (LightGBM) were trained and interpreted across five disease classes.
-- **Cohorts**: Data from **WashU**, **Knight-ADRC**, **ROSMAP**, and **Stanford** cohorts.
+- **Cohorts**: Data from **Knight-ADRC**, **Stanford ADRC**, **MDC**, **Barcelona-1**, **ACE**, **ADNI** and **PPMI** cohorts.
 - **Outcome**: Models demonstrate generalization across independent cohorts and alignment with neuropathological burden.
 
 ---
