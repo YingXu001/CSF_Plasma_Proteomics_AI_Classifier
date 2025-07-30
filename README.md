@@ -5,36 +5,44 @@ This repository hosts the code and analyses for CSF and Plasma Proteomics AI Cla
 ---
 
 ## 📂 Repository Structure
-
 ```
 2025_Xu_CSF_Plasma_AI_Classifier/
 │
-├── csf_model_output/                          # CSF model outputs and feature lists
-├── plasma_model_output/                       # Plasma model outputs and feature lists
+├── Demo/                                   # 50‑sample toy dataset + quick demo
+│   ├── csf_demo_data.csv
+│   └── LightGBM_DEMO.ipynb
 │
-├── Biomarker_Benchmark_Logistic_Regression_PUB.ipynb   # Baseline logistic regression benchmark
+├── csf_model_output/                       # CSF model outputs and feature lists
+├── plasma_model_output/                    # Plasma model outputs and feature lists
 │
-├── CSF_Co_Expression_Protein_Selection_PUB.ipynb        # WGCNA and CSF co-expression modules
-├── CSF_DAA_PUB.R                                          # DAA for CSF proteins
-├── CSF_PCA_PUB.R                                          # PCA of CSF analytes
+├── Biomarker_Benchmark_Logistic_Regression_PUB.ipynb   # Baseline logistic regression
 │
-├── Plasma_Co_Expression_Protein_Selection_PUB.ipynb     # WGCNA and plasma co-expression modules
-├── Plasma_DAA_PUB.R                                      # DAA for plasma proteins
-├── Plasma_PCA_PUB.R                                      # PCA of plasma analytes
+├── CSF_Co_Expression_Protein_Selection_PUB.ipynb       # WGCNA for CSF
+├── CSF_DAA_PUB.R                                       # DAA for CSF proteins
+├── CSF_PCA_PUB.R                                       # PCA of CSF analytes
 │
-├── LightGBM.ipynb                     # Model development and SHAP ratio
-├── LightGBM_Hagerman_PUB.ipynb        # External validation on Hagerman samples
-├── LightGBM_Internal_Test_PUB.ipynb   # Internal cross-validation and performance
-├── LightGBM_ROSMAP_PUB.ipynb          # Inference and performance on ROSMAP proteomic data
-├── LightGBM_WashU_PUB.ipynb           # Inference and performance on WashU proteomic data
+├── Plasma_Co_Expression_Protein_Selection_PUB.ipynb    # WGCNA for plasma
+├── Plasma_DAA_PUB.R                                    # DAA for plasma proteins
+├── Plasma_PCA_PUB.R                                    # PCA of plasma analytes
 │
-├── ROSMAP_Neuro_Correlation_PUB.ipynb    # Correlation of model outputs with neuropathology traits (ROSMAP)
-├── WashU_Neuro_Correlation_PUB.ipynb     # Correlation of model outputs with neuropathology traits (WashU)
+├── LightGBM.ipynb                       # Model development & SHAP interpretation
+├── LightGBM_Hagerman_PUB.ipynb          # External validation (Hagerman)
+├── LightGBM_Internal_Test_PUB.ipynb     # Internal cross‑validation
+├── LightGBM_ROSMAP_PUB.ipynb            # Inference on ROSMAP proteomic data
+├── LightGBM_WashU_PUB.ipynb             # Inference on WashU proteomic data
 │
-├── README.md
+├── ROSMAP_Neuro_Correlation_PUB.ipynb   # Correlation with neuropathology (ROSMAP)
+├── WashU_Neuro_Correlation_PUB.ipynb    # Correlation with neuropathology (WashU)
+│
+├── plasma_significant_rows_0203.csv
+├── csf_significant_rows_0205.csv
+│
+├── environment.yml
+└── README.md
 ```
 
 ---
+
 
 ## 🧠 Study Summary
 
@@ -56,12 +64,14 @@ This repository hosts the code and analyses for CSF and Plasma Proteomics AI Cla
 
 ---
 
-## 📊 Example Outputs
+## 🖥️ System Requirements
 
-- **Radar plots** of predicted class probabilities per clinical group
-- **Volcano plots** showing disease-relevant proteins
-- **Forest plots** from Cox regression models (not shown here, but used in context)
-- **UpSet plots** identifying consistent analytes across CSF and plasma
+| Component | Tested Versions / Notes |
+|-----------|-------------------------|
+| **OS**            | Windows 10/11, Ubuntu 22.04, macOS 13+ |
+| **Python**        | 3.10 (managed by Conda 23.11) |
+| **R**             | 4.3.2 |
+| **Hardware**      | No specialised GPU/TPU required. Benchmarks below on Intel i7‑12700 / 16 GB RAM. |
 
 ---
 
@@ -92,11 +102,83 @@ pheatmap
 
 ---
 
+## 🔧 Installation
+
+Create a fully reproducible environment from the Conda lock-file:
+
+```bash
+# Clone the repository
+git clone <repo-url>
+cd 2025_Xu_CSF_Plasma_AI_Classifier
+
+# Create & activate Conda env (≈ 2 min)
+conda env create -f environment.yml
+conda activate proteomics_ai
+
+# Launch Jupyter
+jupyter notebook
+```
+
+### Additional R packages  
+(needed for DAA, PCA, WGCNA)
+
+```r
+install.packages(c(
+  "limma",
+  "WGCNA",
+  "ggplot2",
+  "dplyr",
+  "pheatmap"
+))
+```
+
+---
+
+## 📊 Example Outputs
+
+- **Radar plots** of predicted class probabilities per clinical group
+- **Volcano plots** showing disease-relevant proteins
+- **Forest plots** from Cox regression models (not shown here, but used in context)
+- **UpSet plots** identifying consistent analytes across CSF and plasma
+
+---
+
+## 🚀 Quick Demo (≤ 30 s)
+
+Open the demo notebook that runs on the 50‑sample toy dataset:
+
+```bash
+jupyter notebook Demo/LightGBM_DEMO.ipynb
+```
+
+Expected outputs:
+
+- **LightGBM performance metrics** (including confusion matrix, AUC, accuracy)  
+- `SHAP_summary_CSF_AD.png` – SHAP summary plot per disease  
+- `SHAP_feature_importance_CSF_per_class.csv` – per‑class feature‑importance numerical results  
+
+<sub>*All results are pre‑rendered inside the notebook (shown in the repo root), so reviewers can inspect them without rerunning any code.*</sub>
+
+---
+
+
+## 🔁 Reproducibility Guide
+
+| Manuscript Result | Notebook / Script                       | Runtime*  |
+|-------------------|------------------------------------------|-----------|
+| Internal CV       | notebooks/LightGBM_Internal_Test_PUB.ipynb | ~8 min   |
+| External ROSMAP   | notebooks/LightGBM_ROSMAP_PUB.ipynb        | ~6 min   |
+| CSF DAA volcano   | scripts_R/CSF_DAA_PUB.R                    | ~3 min   |
+| Plasma PCA        | scripts_R/Plasma_PCA_PUB.R                 | ~2 min   |
+
+\*Benchmarked on Intel i7-12700, 16 GB RAM, no GPU.
+
+---
+
+
 ## 📌 Citation
 
-Please cite this work as:
-
-In prep
+Please cite this work as: Xu Y, Western D, Heo G, Nho K, Huang YN, Liu S, Oh HS, Chen Y, Timsina J, Liu M, Tang Y, Gong K, Budde J, Krish V, Imam F, Fuentes RP, Cano A, Marquie M, Boada M; Knight Alzheimer Disease Research Center (Knight-ADRC), Dominantly Inherited Alzheimer Network (DIAN), Alzheimer Disease Neuroimaging Initiative (ADNI), ACE Alzheimer Center Barcelona (ACE), Barcelona-1, Stanford Alzheimer Disease Research Center (Stanford-ADRC), The Global Neurodegeneration Proteomics Consortium (GNPC); Pastor P, Ruiz A, Fernández MV, Bennett D, Wyss-Coray T, Saykin AJ, Ali M, Cruchaga C. Protein-based Diagnosis and Analysis of Co-pathologies Across Neurodegenerative Diseases: Large-Scale AI-Boosted CSF and Plasma Classification. medRxiv [Preprint]. 2025 Jul 10:2025.07.09.25331192. doi: 10.1101/2025.07.09.25331192. PMID: 40672487; PMCID: PMC12265756.
 
 ---
 
@@ -104,4 +186,9 @@ In prep
 
 For questions, please contact:  
 📧 Fiona Xu – x.ying1@wustl.edu  
-🧬 NeuroGenomics & Informatics Lab, Washington University School of Medicine
+🧬 Cruchaga Lab, NeuroGenomics & Informatics Center, Washington University School of Medicine
+
+
+---
+
+_Last updated: 2025-07-30_
