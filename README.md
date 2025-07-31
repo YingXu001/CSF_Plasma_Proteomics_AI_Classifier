@@ -164,12 +164,12 @@ Expected outputs:
 
 ## 🔁 Reproducibility Guide
 
-| Manuscript Result | Notebook / Script                       | Runtime*  |
-|-------------------|------------------------------------------|-----------|
-| Internal CV       | notebooks/LightGBM_Internal_Test_PUB.ipynb | ~8 min   |
-| External ROSMAP   | notebooks/LightGBM_ROSMAP_PUB.ipynb        | ~6 min   |
-| CSF DAA volcano   | scripts_R/CSF_DAA_PUB.R                    | ~3 min   |
-| Plasma PCA        | scripts_R/Plasma_PCA_PUB.R                 | ~2 min   |
+| Manuscript Result    | Notebook / Script                          | Runtime*  |
+|----------------------|--------------------------------------------|-----------|
+| Internal Testing     | notebooks/LightGBM_Internal_Test_PUB.ipynb | ~8 min   |
+| External Validation  | notebooks/LightGBM_ROSMAP_PUB.ipynb        | ~6 min   |
+| CSF DAA              | scripts_R/CSF_DAA_PUB.R                    | ~3 min   |
+| Plasma PCA           | scripts_R/Plasma_PCA_PUB.R                 | ~2 min   |
 
 \*Benchmarked on Intel i7-12700, 16 GB RAM, no GPU.
 
